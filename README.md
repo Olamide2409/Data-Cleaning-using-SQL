@@ -25,11 +25,8 @@ SELECT *, ROW_NUMBER() OVER(PARTITION BY company, location, industry, total_laid
 
 WITH Duplicate_cte AS 
 ( SELECT *, ROW_NUMBER() OVER(PARTITION BY company, location, industry, total_laid_off, percentage_laid_off,
-'date', stage, country, funds_raised_millions) AS row_num FROM layoffs_staging)
+`date`, stage, country, funds_raised_millions) AS row_num FROM layoffs_staging)
 SELECT * FROM Duplicate_cte WHERE row_num > 1;
-
--- Check for duplicate values within the table using the company named produced from the query
-SELECT * FROM layoffs_staging WHERE company = 'Ola';
 
 -- Create Another table to insert the row number column 
 CREATE TABLE `layoffs_staging2` (
